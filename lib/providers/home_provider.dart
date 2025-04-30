@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery_shop_app/models/items.dart';
 
 class HomeProvider extends ChangeNotifier {
+  List<Item> cartItems = [];
   List<Item> itmes = [
     Item(
       name: "Vegitables",
@@ -34,7 +35,22 @@ class HomeProvider extends ChangeNotifier {
   ];
   void toggleItem(int index) {
     itmes[index].itemAdded = !itmes[index].itemAdded;
+    updateCart(index);
     notifyListeners();
+  }
+
+  void updateCart(int index) {
+    final item = itmes[index];
+
+    if (item.itemAdded) {
+      if (!cartItems.contains(item)) {
+        cartItems.add(item);
+      }
+    } else {
+      cartItems.remove(item);
+    }
+
+    print("Cart Items Count: ${cartItems.length}");
   }
 
   String getGreetingMessage() {

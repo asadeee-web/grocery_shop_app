@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:grocery_shop_app/providers/home_provider.dart';
+import 'package:grocery_shop_app/screens/cart_screen.dart';
 import 'package:grocery_shop_app/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -8,12 +11,12 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ChangeNotifierProvider(
-        create: (context) => HomeProvider(),
-        child: Consumer<HomeProvider>(
-          builder: (context, model, child) {
-            return Padding(
+    return ChangeNotifierProvider(
+      create: (context) => HomeProvider(),
+      child: Consumer<HomeProvider>(
+        builder: (context, model, child) {
+          return Scaffold(
+            body: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                   Expanded(
                     child: GridView.builder(
                       //shrinkWrap: true,
-                      itemCount: 4,
+                      itemCount: model.itmes.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         mainAxisSpacing: 20,
@@ -99,19 +102,34 @@ class HomeScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 model.toggleItem(index);
+
+                                //model.addtoCart(index);
                               },
                               child: Container(
                                 width: 40,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: const Color.fromARGB(255, 0, 0, 0),
-                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.secondaryColor,
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(12),
+                                    bottomLeft: Radius.circular(12),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.10),
+                                      blurRadius: 6,
+                                      offset: Offset(
+                                        2,
+                                        2,
+                                      ), // shadow direction: bottom-right
+                                    ),
+                                  ],
                                 ),
                                 child: Icon(
                                   model.itmes[index].itemAdded
                                       ? Icons.done
                                       : Icons.add,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ),
@@ -122,9 +140,26 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            );
-          },
-        ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Get.to(
+                  () => CartScreen(
+                    cartItems: model.cartItems,
+                    onItemRemoved: (removedItem) {
+                      final index = model.itmes.indexOf(removedItem);
+                      if (index != -1) {
+                        model.itmes[index].itemAdded = false;
+                        model.cartItems.remove(removedItem);
+                      }
+                    },
+                  ),
+                );
+              },
+              child: Icon(Icons.shopping_cart),
+            ),
+          );
+        },
       ),
     );
   }

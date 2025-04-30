@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grocery_shop_app/providers/home_provider.dart';
 
 import 'package:grocery_shop_app/screens/landing_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => HomeProvider())],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -16,7 +23,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Grocery Shop',
-      theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        scaffoldBackgroundColor: Colors.white,
+      ),
       home: LandingScreen(),
     );
   }
