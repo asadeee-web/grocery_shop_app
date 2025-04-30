@@ -25,7 +25,8 @@ class MyApp extends StatelessWidget {
       title: 'Grocery Shop',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
+        fontFamily: "poppins",
+        //textTheme: GoogleFonts.poppinsTextTheme(),
         scaffoldBackgroundColor: Colors.white,
       ),
       home: LandingScreen(),

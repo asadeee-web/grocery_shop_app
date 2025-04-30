@@ -36,64 +36,70 @@ class CartScreen extends StatelessWidget {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
                   ),
                   SizedBox(height: 10),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: model.cartItem.length,
-                      itemBuilder: (context, index) {
-                        final item = model.cartItem[index];
-                        return Container(
-                          margin: EdgeInsets.all(10),
-                          height: 100,
-                          decoration: BoxDecoration(
-                            color: AppColors.secondaryColor,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 6,
-                                offset: Offset(2, 2),
-                              ),
-                            ],
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    item.image,
-                                    width: 80,
-                                    height: 80,
-                                  ),
-                                  SizedBox(width: 10),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(item.name),
-                                      SizedBox(height: 10),
-                                      Text("\$ ${item.price}"),
-                                    ],
+                  cartItems.isEmpty
+                      ? Expanded(
+                        child: Center(child: Text("No Items In the Cart")),
+                      )
+                      : Expanded(
+                        child: ListView.builder(
+                          itemCount: model.cartItem.length,
+                          itemBuilder: (context, index) {
+                            final item = model.cartItem[index];
+                            return Container(
+                              margin: EdgeInsets.all(10),
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: AppColors.secondaryColor,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    blurRadius: 6,
+                                    offset: Offset(2, 2),
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15),
-                                child: CustomCircleButton(
-                                  icon: Icons.cancel_rounded,
-                                  onTap: () {
-                                    model.removeItem(index);
-                                    onItemRemoved(item);
-                                  },
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        item.image,
+                                        width: 80,
+                                        height: 80,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(item.name),
+                                          SizedBox(height: 10),
+                                          Text("\$ ${item.price}"),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15),
+                                    child: CustomCircleButton(
+                                      icon: Icons.cancel_rounded,
+                                      onTap: () {
+                                        model.removeItem(index);
+                                        onItemRemoved(item);
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                            );
+                          },
+                        ),
+                      ),
                   Container(
                     padding: EdgeInsets.all(20),
                     height: 100,

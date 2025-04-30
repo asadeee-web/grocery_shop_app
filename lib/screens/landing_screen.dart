@@ -3,7 +3,6 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get/utils.dart';
 import 'package:grocery_shop_app/components/custom_button.dart';
 import 'package:grocery_shop_app/screens/home_screen.dart';
-import 'package:grocery_shop_app/utils/colors.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -28,7 +27,8 @@ class LandingScreen extends StatelessWidget {
             Text(
               "We Deliver Grocery At Your Door Step",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
             ),
             SizedBox(height: 20),
             Text(
