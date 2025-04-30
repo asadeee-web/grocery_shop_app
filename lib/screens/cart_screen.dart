@@ -118,7 +118,7 @@ class CartScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 5),
                             Text(
-                              model.totalAmount.toString(),
+                              "\$ ${model.totalAmount.toString()}",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

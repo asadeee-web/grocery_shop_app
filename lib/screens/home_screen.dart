@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:grocery_shop_app/components/custom_items_card.dart';
 import 'package:grocery_shop_app/providers/home_provider.dart';
 import 'package:grocery_shop_app/screens/cart_screen.dart';
 import 'package:grocery_shop_app/utils/colors.dart';
@@ -53,7 +54,10 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 40),
-                  Text("Categories"),
+                  Text(
+                    "Categories",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                   Expanded(
                     child: GridView.builder(
                       //shrinkWrap: true,
@@ -64,76 +68,16 @@ class HomeScreen extends StatelessWidget {
                         crossAxisSpacing: 20,
                       ),
                       itemBuilder: (context, index) {
-                        return Stack(
-                          alignment: Alignment.bottomRight,
-                          children: [
-                            Container(
-                              //padding: EdgeInsets.all(10),
-                              width: 200,
-                              height: 200,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: model.itmes[index].color,
-                              ),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Image.asset(
-                                    model.itmes[index].image,
-                                    width: 100,
-                                    height: 100,
-                                  ),
-                                  Text(
-                                    model.itmes[index].name,
-                                    style: TextStyle(fontSize: 14),
-                                  ),
-
-                                  Text(
-                                    "\$ ${model.itmes[index].price.toString()}",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                model.toggleItem(index);
-
-                                //model.addtoCart(index);
-                              },
-                              child: Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: AppColors.secondaryColor,
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(12),
-                                    bottomLeft: Radius.circular(12),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.10),
-                                      blurRadius: 6,
-                                      offset: Offset(
-                                        2,
-                                        2,
-                                      ), // shadow direction: bottom-right
-                                    ),
-                                  ],
-                                ),
-                                child: Icon(
-                                  model.itmes[index].itemAdded
-                                      ? Icons.done
-                                      : Icons.add,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
+                        final item = model.itmes[index];
+                        return CustomItemsCard(
+                          color: item.color,
+                          name: item.name,
+                          image: item.image,
+                          isAdded: item.itemAdded,
+                          onPressed: () {
+                            model.toggleItem(index);
+                          },
+                          price: item.price,
                         );
                       },
                     ),

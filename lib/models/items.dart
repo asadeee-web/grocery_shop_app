@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Item {
   final String name;
-  final String image; // This could be a URL or an asset path
+  final String image;
   final double price;
   final Color color;
   bool itemAdded;
