@@ -1,4 +1,4 @@
-name: Build Flutter AAB
+name: Build Flutter APK
 
 on:
   push:
@@ -25,12 +25,11 @@ jobs:
           VERSION_CODE=${{ github.run_number }}
           sed -i "s/^version:.*/version: $VERSION_NAME+$VERSION_CODE/" pubspec.yaml
 
-      - name: Build AAB
-        run: flutter build appbundle --release
+      - name: Build APK
+        run: flutter build apk --release
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release.aab
-          path: build/app/outputs/bundle/release/app-release.aab
-
+          name: app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk
