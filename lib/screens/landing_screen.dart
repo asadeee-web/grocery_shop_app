@@ -28,7 +28,7 @@ class LandingScreen extends StatelessWidget {
               "We Deliver Grocery At Your Door Step",
               textAlign: TextAlign.center,
 
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.w900),
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
             Text(
