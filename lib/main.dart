@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Grocery Shop',
+      title: 'Grocery Shop App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: "poppins",
